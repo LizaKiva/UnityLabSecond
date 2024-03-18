@@ -22,12 +22,40 @@ public class CardGame : MonoBehaviour
         }
     }
 
+    public static CardGame Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<CardGame>();
+            }
+
+            return instance;
+        }
+    }
+
     public void StartGame()
     {
         foreach (CardAsset asset in initalCards)
         {
             CreateCard(asset, 0);
         }
+    }
+
+    public List<CardInstance> GetCardsInLayout(int layoutId)
+    {
+        List<CardInstance> cardInLayout = new List<CardInstance>();
+
+        foreach (var card in cardDictionary.Keys)
+        {
+            if (card.layoutId == layoutId)
+            {
+                cardInLayout.Add(card);
+            }
+        }
+
+        return cardInLayout;
     }
 
     private void CreateCardView(CardInstance cardInstance)
@@ -43,5 +71,15 @@ public class CardGame : MonoBehaviour
         CardInstance cardInstance = new CardInstance(cardAsset);
         cardInstance.MoveToLayout(layoutId);
         CreateCardView(cardInstance);
+    }
+
+    public CardView GetCardView(CardInstance cardInstance)
+    {
+        if (cardDictionary.ContainsKey(cardInstance))
+        {
+            return cardDictionary[cardInstance];
+        }
+
+        return null;
     }
 }
