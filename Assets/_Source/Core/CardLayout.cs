@@ -1,32 +1,33 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardLayout : MonoBehaviour
-{
-    public int LayoutId;
-    public Vector2 Offset;
-    public bool FaceUp;
-
-    private void Update()
+namespace _Source.Core.CardLayout {
+    public class CardLayout : MonoBehaviour
     {
-        List<CardInstance> cardsInLayout = CardGame.Instance.GetCardsInLayout(LayoutId);
-        for (int i = 0; i < cardsInLayout.Count; i++)
-        {
-            CardInstance cardInstance = cardsInLayout[i];
-            CardView cardObject = CardGame.Instance.GetCardView(cardInstance);
-            if (cardObject != null)
-            {
-                Transform cardTransform = cardObject.transform;
-                cardTransform.localPosition = new Vector3(i * Offset.x, i * Offset.y, 0f); 
-                cardTransform.SetSiblingIndex(cardInstance.cardPosition); 
+        public int LayoutId;
+        public Vector2 Offset;
+        public bool FaceUp;
 
-                CardView cardView = cardObject.GetComponent<CardView>();
-                if (cardView != null)
+        private void Update()
+        {
+            List<_Source.Core.CardInstance.CardInstance> cardsInLayout = _Source.Presentation.CardGame.CardGame.Instance.GetCardsInLayout(LayoutId);
+            for (int i = 0; i < cardsInLayout.Count; i++)
+            {
+                _Source.Core.CardInstance.CardInstance cardInstance = cardsInLayout[i];
+                _Source.Presentation.CardView.CardView cardObject = _Source.Presentation.CardGame.CardGame.Instance.GetCardView(cardInstance);
+                if (cardObject != null)
                 {
-                    //cardView.Rotate(FaceUp);
+                    Transform cardTransform = cardObject.transform;
+                    cardTransform.localPosition = new Vector3(i * Offset.x, i * Offset.y, 0f);
+                    cardTransform.SetSiblingIndex(cardInstance.cardPosition);
+
+                    _Source.Presentation.CardView.CardView cardView = cardObject.GetComponent<_Source.Presentation.CardView.CardView>();
+                    if (cardView != null)
+                    {
+                        //cardView.Rotate(FaceUp);
+                    }
                 }
             }
         }
     }
-}
+ }

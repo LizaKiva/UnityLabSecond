@@ -1,85 +1,89 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-[RequireComponent(typeof(CardInstance))]
-[RequireComponent(typeof(CardView))]
-public class CardGame : MonoBehaviour
+namespace _Source.Presentation.CardGame
 {
-    public static CardGame instance;
-    public GameObject cardPrefab;
-    private Dictionary<CardInstance, CardView> cardDictionary = new Dictionary<CardInstance, CardView>();
-    public List<CardAsset> initalCards = new List<CardAsset>();
-
-    private void Awake()
+    public class CardGame : MonoBehaviour
     {
-        if (instance == null)
-        {
-            instance = this;
-        } 
-        else {
-            Destroy(gameObject);
-        }
-    }
+        public static CardGame instance;
+        public static GameObject cardPrefab;
+        private static Dictionary<_Source.Core.CardInstance.CardInstance, _Source.Presentation.CardView.CardView> cardDictionary 
+            = new Dictionary<_Source.Core.CardInstance.CardInstance, _Source.Presentation.CardView.CardView>();
+        public static List<_Source.Core.CardAsset.CardAsset> initalCards = new List<_Source.Core.CardAsset.CardAsset>();
 
-    public static CardGame Instance
-    {
-        get
+        private void Awake()
         {
             if (instance == null)
             {
-                instance = FindObjectOfType<CardGame>();
+                instance = this;
             }
-
-            return instance;
-        }
-    }
-
-    public void StartGame()
-    {
-        foreach (CardAsset asset in initalCards)
-        {
-            CreateCard(asset, 0);
-        }
-    }
-
-    public List<CardInstance> GetCardsInLayout(int layoutId)
-    {
-        List<CardInstance> cardInLayout = new List<CardInstance>();
-
-        foreach (var card in cardDictionary.Keys)
-        {
-            if (card.layoutId == layoutId)
+            else
             {
-                cardInLayout.Add(card);
+                Destroy(gameObject);
             }
         }
 
-        return cardInLayout;
-    }
-
-    private void CreateCardView(CardInstance cardInstance)
-    {
-        GameObject cardGo = Instantiate(cardPrefab);
-        CardView cardView = cardGo.GetComponent<CardView>();
-        cardView.Init(cardInstance);
-        cardDictionary.Add(cardInstance, cardView);
-    }
-
-    private void CreateCard(CardAsset cardAsset, int layoutId)
-    {
-        CardInstance cardInstance = new CardInstance(cardAsset);
-        cardInstance.MoveToLayout(layoutId);
-        CreateCardView(cardInstance);
-    }
-
-    public CardView GetCardView(CardInstance cardInstance)
-    {
-        if (cardDictionary.ContainsKey(cardInstance))
+        public static CardGame Instance
         {
-            return cardDictionary[cardInstance];
+            get
+            {
+                if (instance == null)
+                {
+                    instance = FindObjectOfType<CardGame>();
+                }
+
+                return instance;
+            }
         }
 
-        return null;
+        public void StartGame()
+        {
+            foreach (_Source.Core.CardAsset.CardAsset asset in initalCards)
+            {
+                CreateCard(asset, 0);
+            }
+        }
+
+        public List<_Source.Core.CardInstance.CardInstance> GetCardsInLayout(int layoutId)
+        {
+            List<_Source.Core.CardInstance.CardInstance> cardInLayout = new List<_Source.Core.CardInstance.CardInstance>();
+
+            foreach (var card in cardDictionary.Keys)
+            {
+                if (card.layoutId == layoutId)
+                {
+                    cardInLayout.Add(card);
+                }
+            }
+
+            return cardInLayout;
+        }
+
+        private void CreateCardView(_Source.Core.CardInstance.CardInstance cardInstance)
+        {
+            GameObject cardGo = Instantiate(cardPrefab);
+            _Source.Presentation.CardView.CardView cardView = cardGo.GetComponent<_Source.Presentation.CardView.CardView>();
+            cardView.Init(cardInstance);
+            cardDictionary.Add(cardInstance, cardView);
+        }
+
+        private void CreateCard(_Source.Core.CardAsset.CardAsset cardAsset, int layoutId)
+        {
+            _Source.Core.CardInstance.CardInstance cardInstance = new _Source.Core.CardInstance.CardInstance(cardAsset);
+            cardInstance.MoveToLayout(layoutId);
+            CreateCardView(cardInstance);
+        }
+
+        public _Source.Presentation.CardView.CardView GetCardView(_Source.Core.CardInstance.CardInstance cardInstance)
+        {
+            if (cardDictionary.ContainsKey(cardInstance))
+            {
+                return cardDictionary[cardInstance];
+            }
+
+            return null;
+        }
     }
 }

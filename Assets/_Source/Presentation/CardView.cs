@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(CardInstance))]
-public class CardView : MonoBehaviour
+namespace _Source.Presentation.CardView
 {
-    public CardInstance cardInstance;
-
-    public void Init(CardInstance instance)
+    public class CardView : MonoBehaviour
     {
-        this.cardInstance = instance;
-    }
+        public _Source.Core.CardInstance.CardInstance cardInstance;
 
+        public void Init(_Source.Core.CardInstance.CardInstance cardInstance)
+        {
+            this.cardInstance = cardInstance;
+        }
+
+    }
 }

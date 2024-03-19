@@ -2,20 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CardAsset))]
-public class CardInstance : MonoBehaviour
+namespace _Source.Core.CardInstance
 {
-    public CardAsset cardAsset;
-    public int layoutId;
-    public int cardPosition;
-
-    public CardInstance(CardAsset cardAsset)
+    public class CardInstance : MonoBehaviour
     {
-        this.cardAsset = cardAsset;
-    }
+        public _Source.Core.CardAsset.CardAsset cardAsset;
+        public int layoutId;
+        public int cardPosition;
 
-    public void MoveToLayout(int newLayout)
-    {
-        layoutId = newLayout;
+        public CardInstance(_Source.Core.CardAsset.CardAsset cardAsset)
+        {
+            this.cardAsset = cardAsset;
+        }
+
+        public void MoveToLayout(int newLayout)
+        {
+            layoutId = newLayout;
+        }
     }
 }
