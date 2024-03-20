@@ -10,12 +10,14 @@ namespace _Source.Core.CardAsset
         public string cardName;
         public Color cardColor;
         public Sprite cardSprite;
+        public Sprite backSprite;
 
-        public CardAsset(string cardName, Color cardColor, Sprite cardSprite)
+        public CardAsset(string cardName, Color cardColor, Sprite cardSprite, Sprite backSprite)
         {
             this.cardName = cardName;
             this.cardColor = cardColor;
             this.cardSprite = cardSprite;
+            this.backSprite = backSprite;
         }
     }
 }

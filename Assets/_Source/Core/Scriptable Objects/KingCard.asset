@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c819bc2e0a64a24e975552e80b21731, type: 3}
-  m_Name: TestCard
+  m_Name: KingCard
   m_EditorClassIdentifier: 
-  cardName: "\u0422\u0443\u0437"
-  cardColor: {r: 0, g: 0, b: 0, a: 0}
-  cardSprite: {fileID: 21300000, guid: 024d7cc6ce5827744a2fb801183b1c49, type: 3}
+  cardName: King
+  cardColor: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 1}
+  cardSprite: {fileID: 21300000, guid: cb2de8a77c990554382d24fac4b0c25d, type: 3}
+  backSprite: {fileID: 21300000, guid: b27a4bc16f079b64494948a78f0bab33, type: 3}

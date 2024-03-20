@@ -6,10 +6,13 @@ namespace _Source.Core.CardLayout {
     {
         public int LayoutId;
         public Vector2 Offset;
+        public Vector2 InitialOffset;
         public bool FaceUp;
 
         private void Update()
         {
+            Vector3 layoutPosition = new Vector3(InitialOffset.x, InitialOffset.y, 0f);
+
             List<_Source.Core.CardInstance.CardInstance> cardsInLayout = _Source.Presentation.CardGame.CardGame.Instance.GetCardsInLayout(LayoutId);
             for (int i = 0; i < cardsInLayout.Count; i++)
             {
@@ -18,13 +21,14 @@ namespace _Source.Core.CardLayout {
                 if (cardObject != null)
                 {
                     Transform cardTransform = cardObject.transform;
-                    cardTransform.localPosition = new Vector3(i * Offset.x, i * Offset.y, 0f);
+                    cardTransform.SetParent(this.transform);
+                    cardTransform.localPosition = layoutPosition + new Vector3(cardInstance.cardPosition * Offset.x, cardInstance.cardPosition * Offset.y, 0f);
                     cardTransform.SetSiblingIndex(cardInstance.cardPosition);
 
                     _Source.Presentation.CardView.CardView cardView = cardObject.GetComponent<_Source.Presentation.CardView.CardView>();
                     if (cardView != null)
                     {
-                        //cardView.Rotate(FaceUp);
+                        cardView.Rotate(FaceUp);
                     }
                 }
             }
