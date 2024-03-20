@@ -2,10 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Card Asset", menuName = "Card Game/Card Asset")]
-public class CardAsset : ScriptableObject
+namespace _Source.Core.CardAsset
 {
-    public string cardName;
-    public Color cardColor;
-    public Sprite cardSprite;
+    [CreateAssetMenu(fileName = "NewCardAsset", menuName = "CardAsset")]
+    public class CardAsset : ScriptableObject
+    {
+        public string cardName;
+        public Color cardColor;
+        public Sprite cardSprite;
+        public Sprite backSprite;
+
+        public CardAsset(string cardName, Color cardColor, Sprite cardSprite, Sprite backSprite)
+        {
+            this.cardName = cardName;
+            this.cardColor = cardColor;
+            this.cardSprite = cardSprite;
+            this.backSprite = backSprite;
+        }
+    }
 }
